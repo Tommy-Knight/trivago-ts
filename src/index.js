@@ -6,9 +6,11 @@ import dotenv from "dotenv"
 
 
 dotenv.config()
+
 const server = express();
 server.use(cors());
 server.use(express.json())
+
 const port = process.env.PORT || 3420;
 
 // ><><><><: MIDDLEWARES :><><><>< \\
@@ -26,14 +28,10 @@ console.table(listEndpoints(server));
 
 // ><><><><: MONGO TIME :><><><>< \\
 mongoose
-	.connect(
-		process.env.MONGOOSE_CONNECTION,
-		 { unifiedTopology: true }
-	)
+	.connect(process.env.MONGOOSE_CONNECTION, { unifiedTopology: true }, { useNewUrlParser: true })
 	.then(() => {
 		console.log("Connected to mongo");
 		server.listen(port, () => {
-			console.log(list(app));
 			console.log("Server listening on port " + port + " 🍌");
 		});
 	});
