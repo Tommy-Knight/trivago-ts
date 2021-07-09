@@ -3,7 +3,7 @@ import cors from "cors";
 import listEndpoints from "express-list-endpoints";
 import mongoose from "mongoose";
 import dotenv from "dotenv"
-
+import accomodationRouter from "./services/index.js"
 
 dotenv.config()
 
@@ -18,7 +18,7 @@ const port = process.env.PORT || 3420;
 
 // ><><><><: ROUTES :><><><>< \\
 
-// server.use("/accomodation", accomodationRouter);
+server.use("/accomodation", accomodationRouter);
 // server.use("/destination", destinationRouter);
 
 // ><><><><: ERROR MIDDLEWARES :><><><>< \\

@@ -1,24 +1,33 @@
-import mongoose from mongoose;
+import mongoose from "mongoose";
 
 const { Schema, model } = mongoose;
+
 const AccomodationSchema = new Schema({
     name: {
-        type: string,
+        type: String,
         required: true
     },
-    description:{
-            type: string,
-            required: true
-        },
+    description: {
+        type: String,
+        required: true
+    },
     maxGuests: {
-            type: number,
-            required: true,
-            minimum: 1
-        },
+        type: Number,
+        required: true,
+        minimum: 1
+    },
     city: {
-            type: string,
-            required: true
-        }
+        type: String,
+        required: true
+    }
+})
+
+AccomodationSchema.post("validate", (error, doc, next) => {
+    if (error) {
+        console.log(error)
+    } else {
+        console.log("hello tommy")
+    }
 })
 
 export default new model("Accomodation", AccomodationSchema)
