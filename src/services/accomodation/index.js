@@ -1,6 +1,6 @@
 import express from "express"
-import AccomodationModel from "../models/accomodation/schema.js"
-import createError from "create-error"
+import AccomodationModel from "../../models/accomodation/schema.js"
+import createError from "http-errors"
 
 
 const accomodationRouter = express.Router()
@@ -8,8 +8,9 @@ const accomodationRouter = express.Router()
 
 accomodationRouter.get("/", async (req, res, next) => {
     try {
-        const accomodations = await AccomodationModel.find({})
-        accomodations.length > 0 ? res.status(200).send(accomodations) : res.send("No accomodations available")
+        const accomodations = await AccomodationModel.find({}).populate("city")
+
+        accomodations.length > 0 ? res.status(200).send(accomodations) : res.status(404).send("No accomodations available")
 
     } catch (error) {
         console.log(error)
@@ -21,10 +22,10 @@ accomodationRouter.post("/", async (req, res, next) => {
         const newAcc = new AccomodationModel(req.body)
         const response = await newAcc.save()
 
-        response ? res.status(201).send(response) : res.send("Error creating new accomodation")
+        response._id ? res.status(201).send(response) : next(createError(400, "Error creating accomodation"))
 
     } catch (error) {
-        console.log(error)
+        next(error)
     }
 })
 
@@ -43,7 +44,7 @@ accomodationRouter.get("/:id", async (req, res, next) => {
     try {
         const accomodation = await AccomodationModel.findById(req.params.id)
 
-        accomodation ? res.status(200).send(accomodation) : res.send("Accomodation with Id not found")
+        accomodation ? res.status(200).send(accomodation) : res.status(404).send("Accomodation with Id not found")
 
     } catch (error) {
         console.log(error)
@@ -54,11 +55,11 @@ accomodationRouter.get("/:id", async (req, res, next) => {
 accomodationRouter.delete("/:id", async (req, res, next) => {
     try {
         const deleted = await AccomodationModel.findByIdAndDelete(req.params.id)
-
-        deleted ? res.status(204) : res.status(404).send("Accomodation with Id not found")
+        console.log(deleted)
+        deleted ? res.status(204).send() : next(createError(404, "Id does not exist"))
 
     } catch (error) {
-        console.log(error)
+        next(error)
     }
 })
 

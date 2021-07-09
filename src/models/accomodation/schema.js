@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+import createError from "http-errors"
+
 
 const { Schema, model } = mongoose;
 
@@ -17,16 +19,17 @@ const AccomodationSchema = new Schema({
         minimum: 1
     },
     city: {
-        type: String,
+        type: Schema.Types.ObjectId, ref: "Destination",
         required: true
     }
 })
 
 AccomodationSchema.post("validate", (error, doc, next) => {
     if (error) {
-        console.log(error)
+        const err = createError(400, error)
+        next(err)
     } else {
-        console.log("hello tommy")
+        next(error)
     }
 })
 
