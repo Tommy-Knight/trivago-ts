@@ -28,7 +28,7 @@ console.table(listEndpoints(server));
 
 // ><><><><: MONGO TIME :><><><>< \\
 mongoose
-	.connect(process.env.MONGOOSE_CONNECTION, { unifiedTopology: true }, { useNewUrlParser: true })
+	.connect(process.env.MONGOOSE_CONNECTION, { useNewUrlParser: true }, { unifiedTopology: true })
 	.then(() => {
 		console.log("Connected to mongo");
 		server.listen(port, () => {
@@ -36,3 +36,4 @@ mongoose
 		});
 	});
 
+export default server

@@ -5,11 +5,10 @@
 	"main": "index.js",
 	"type": "module",
 	"scripts": {
-		"test": "jest",
-		"watch": "jest --watchAll",
-		"__dev": "nodemon -r dotenv/config ./src",
-		"dev": "ts-node-dev ./src",
-		"start": "node ./src"
+		"dev": "nodemon -r dotenv/config ./src",
+		"test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
+		"watch": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --watchAll",
+		"start": "node -r dotenv/config ./src/index.js"
 	},
 	"repository": {
 		"type": "git",
@@ -26,6 +25,7 @@
 		"@types/express-list-endpoints": "^4.0.1",
 		"@types/node": "^16.0.1",
 		"cors": "^2.8.5",
+		"cross-env": "^7.0.3",
 		"express": "^4.17.1",
 		"express-list-endpoints": "^5.0.0",
 		"mongoose": "^5.13.2"
