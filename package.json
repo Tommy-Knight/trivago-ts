@@ -25,6 +25,7 @@
 		"@types/express-list-endpoints": "^4.0.1",
 		"@types/node": "^16.0.1",
 		"cors": "^2.8.5",
+		"create-error": "^0.3.1",
 		"cross-env": "^7.0.3",
 		"express": "^4.17.1",
 		"express-list-endpoints": "^5.0.0",
