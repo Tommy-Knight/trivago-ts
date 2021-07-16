@@ -21,7 +21,8 @@ const AccomodationSchema = new Schema({
     city: {
         type: Schema.Types.ObjectId, ref: "Destination",
         required: true
-    }
+    },
+    host: { type: Schema.Types.ObjectId, ref: "User", required: true }
 })
 
 AccomodationSchema.post("validate", (error, doc, next) => {

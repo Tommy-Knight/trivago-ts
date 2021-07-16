@@ -5,14 +5,16 @@ import mongoose from "mongoose";
 import dotenv from "dotenv"
 import accomodationRouter from "./services/accomodation/index.js"
 import destinationRouter from "./services/destination/index.js"
-
+import userRouter from "./services/user/index.js"
 import {badRequestErrorHandler, notFoundErrorHandler, forbiddenErrorHandler, catchAllErrorHandler} from "./errorHandlers.js"
+import cookieParser from 'cookie-parser'
 
 dotenv.config()
 
 const server = express();
 server.use(cors());
 server.use(express.json())
+server.use(cookieParser())
 
 const port = process.env.PORT || 3420;
 
@@ -23,6 +25,8 @@ const port = process.env.PORT || 3420;
 
 server.use("/accomodation", accomodationRouter);
 server.use("/destination", destinationRouter);
+server.use("/user", userRouter);
+
 
 // ><><><><: ERROR MIDDLEWARES :><><><>< \\
 
